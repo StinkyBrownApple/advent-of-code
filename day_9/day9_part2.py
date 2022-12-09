@@ -13,8 +13,7 @@ def move_tail(head_x, head_y, tail_x, tail_y):
 
 
 def main():
-    head = (0, 0)
-    tail = (0, 0)
+    rope = [(0, 0) for _ in range(10)]
     move_dict = {'R': (1, 0), 'L': (-1, 0), 'U': (0, 1), 'D': (0, -1)}
     tail_positions = {(0, 0)}
     for line in open('input.txt'):
@@ -22,9 +21,10 @@ def main():
         move = instruction[0]
         amount = int(instruction[1])
         for _ in range(amount):
-            head = (head[0] + move_dict[move][0], head[1] + move_dict[move][1])
-            tail = move_tail(head[0], head[1], tail[0], tail[1])
-            tail_positions.add(tail)
+            rope[0] = (rope[0][0] + move_dict[move][0], rope[0][1] + move_dict[move][1])
+            for i in range(len(rope) - 1):
+                rope[i+1] = move_tail(rope[i][0], rope[i][1], rope[i+1][0],  rope[i+1][1])
+            tail_positions.add(rope[i+1])
     print(len(tail_positions))
 
 
