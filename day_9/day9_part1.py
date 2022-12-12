@@ -1,5 +1,6 @@
 import math
 
+
 def clamp(val, smallest, biggest):
     return max(smallest, min(val, biggest))
 
@@ -8,8 +9,8 @@ def move_tail(head_x, head_y, tail_x, tail_y):
     diff_x = (head_x - tail_x)
     diff_y = (head_y - tail_y)
     if math.sqrt(diff_x ** 2 + diff_y ** 2) > 1.5:
-        return (tail_x + clamp(diff_x, -1, 1), tail_y + clamp(diff_y, -1, 1))
-    return (tail_x, tail_y)
+        return tail_x + clamp(diff_x, -1, 1), tail_y + clamp(diff_y, -1, 1)
+    return tail_x, tail_y
 
 
 def main():
@@ -26,7 +27,6 @@ def main():
             tail = move_tail(head[0], head[1], tail[0], tail[1])
             tail_positions.add(tail)
     print(len(tail_positions))
-
 
 
 if __name__ == '__main__':

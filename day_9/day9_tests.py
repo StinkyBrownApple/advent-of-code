@@ -1,5 +1,6 @@
 from day9_part1 import move_tail
 
+
 def print_grid(head_x, head_y, tail_x, tail_y):
     grid = []
     for j in range(6):
