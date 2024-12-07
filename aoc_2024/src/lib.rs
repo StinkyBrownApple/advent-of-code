@@ -4,6 +4,7 @@ mod day_3;
 mod day_4;
 mod day_5;
 mod day_6;
+mod day_7;
 
 pub fn day_one_part_one() {
     day_1::day_1::day_one_part_one();
@@ -51,4 +52,12 @@ pub fn day_six_part_one() {
 
 pub fn day_six_part_two() {
     day_6::day_6::day_six_part_two();
+}
+
+pub fn day_seven_part_one() {
+    day_7::day_7::day_seven_part_one();
+}
+
+pub fn day_seven_part_two() {
+    day_7::day_7::day_seven_part_two();
 }
