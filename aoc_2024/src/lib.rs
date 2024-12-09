@@ -6,6 +6,7 @@ mod day_5;
 mod day_6;
 mod day_7;
 mod day_8;
+mod day_9;
 
 pub fn day_one_part_one() {
     day_1::day_1::day_one_part_one();
@@ -64,9 +65,9 @@ pub fn day_seven_part_two() {
 }
 
 pub fn day_eight_part_one() {
-    day_8::day8::day_eight_part_one()
+    day_8::day_8::day_eight_part_one()
 }
 
 pub fn day_eight_part_two() {
-    day_8::day8::day_eight_part_two()
+    day_8::day_8::day_eight_part_two()
 }
