@@ -71,3 +71,11 @@ pub fn day_eight_part_one() {
 pub fn day_eight_part_two() {
     day_8::day_8::day_eight_part_two()
 }
+
+pub fn day_nine_part_one() {
+    day_9::day_9::day_nine_part_one()
+}
+
+pub fn day_nine_part_two() {
+    day_9::day_9::day_nine_part_two()
+}
