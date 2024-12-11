@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::time::Instant;
 
 fn get_input() -> String {
@@ -5,11 +6,11 @@ fn get_input() -> String {
 }
 
 pub fn day_eleven_part_one() {
-    day_eleven(25); // Finished 25 iters in 119.865708ms. Answer: 218079
+    day_eleven(25); // Finished 25 iters in 44.306333ms. Answer: 218079
 }
 
 pub fn day_eleven_part_two() {
-    day_eleven(40); // Finished 40 iters in 53.933879916s. Answer: 115133671
+    day_eleven(40); // Finished 40 iters in 20.252521125s. Answer: 115133671
 }
 
 pub fn day_eleven(iters: usize) {
@@ -28,16 +29,18 @@ pub fn day_eleven(iters: usize) {
                 new_stones.push(1);
                 continue;
             }
-            let stone_string = stones[j].to_string();
-            if stone_string.len() % 2 == 0 {
-                let stone_chars = stone_string.chars();
-                let split_a = stone_chars.clone().take(stone_string.len() / 2).collect::<String>().parse::<usize>().unwrap();
-                let split_b = stone_chars.skip(stone_string.len() / 2).collect::<String>().parse::<usize>().unwrap();
+            //let len = stones[j].checked_ilog10().unwrap_or(0) + 1;
+            let len = stones[j].to_string().len() as u32;
+            if len % 2 == 0 {
+                let shift = 10usize.pow(len / 2);
+                let split_a = stones[j] / shift;
+                let split_b = stones[j] % shift;
                 new_stones.push(split_a);
                 new_stones.push(split_b);
                 continue;
             }
-            new_stones.push(stones[j] * 2024);
+            let mul = stones[j] * 2024;
+            new_stones.push(mul);
         }
         stones = new_stones;
         println!("Loop {} took {:?}", i, loop_time.elapsed());
