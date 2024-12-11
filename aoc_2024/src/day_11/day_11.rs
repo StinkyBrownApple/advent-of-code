@@ -1,15 +1,16 @@
 use std::time::Instant;
+use rayon::prelude::*;
 
 fn get_input() -> String {
     String::from(include_str!("./input.txt"))
 }
 
 pub fn day_eleven_part_one() {
-    day_eleven(25); // Finished 25 iters in 44.306333ms. Answer: 218079
+    day_eleven(25); // Finished 25 iters in 31.9875ms. Answer: 218079
 }
 
 pub fn day_eleven_part_two() {
-    day_eleven(40); // Finished 40 iters in 20.252521125s. Answer: 115133671
+    day_eleven(40); // Finished 40 iters in 3.653700459s. Answer: 115133671
 }
 
 pub fn day_eleven(iters: usize) {
@@ -22,23 +23,33 @@ pub fn day_eleven(iters: usize) {
     let full_time = Instant::now();
     for i in 0..iters {
         let loop_time = Instant::now();
-        for j in 0..stones.len() {
-            if stones[j] == 0 {
-                stones[j] = 1;
-                continue;
-            }
-            let len = stones[j].to_string().len() as u32;
-            if len % 2 == 0 {
-                let shift = 10usize.pow(len / 2);
-                let split_a = stones[j] / shift;
-                let split_b = stones[j] % shift;
-                stones[j] = split_a;
-                stones.push(split_b);
-                continue;
-            }
-            stones[j] = stones[j] * 2024;
-        }
-        println!("Loop {} took {:?}", i, loop_time.elapsed());
+        stones = stones
+            .par_chunks_mut(1000)
+            .map(|chunk| {
+                let mut new_stones: Vec<usize> = vec![];
+                chunk.iter_mut().for_each(|j| {
+                    if *j == 0 {
+                        *j = 1;
+                        return;
+                    }
+                let len = j.to_string().len() as u32;
+                if len % 2 == 0 {
+                    let shift = 10usize.pow(len / 2);
+                    let split_a = *j / shift;
+                    let split_b = *j % shift;
+                    *j = split_a;
+                    new_stones.push(split_b);
+                    return;
+                }
+                *j = *j * 2024;
+                });
+                let mut concat_stones = chunk.iter().map(|x| *x).collect::<Vec<usize>>();
+                concat_stones.append(&mut new_stones);
+                return concat_stones;
+            })
+            .flatten()
+            .collect::<Vec<usize>>();
+        println!("Loop {} took {:?}. Stone count: {:?}", i, loop_time.elapsed(), stones.len());
     }
     println!("Finished {} iters in {:?}. Answer: {}", iters, full_time.elapsed(), stones.len());
 }
