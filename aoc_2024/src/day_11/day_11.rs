@@ -9,7 +9,7 @@ pub fn day_eleven_part_one() {
 }
 
 pub fn day_eleven_part_two() {
-    day_eleven(75);
+    day_eleven(40); // Finished 40 iters in 53.933879916s. Answer: 115133671
 }
 
 pub fn day_eleven(iters: usize) {
